@@ -12,7 +12,7 @@
 |last_name_kana    |string|null: false              |
 |first_name_kana   |string|null: false              |
 |birth_day         |date  |null: false              |
-|phone_number      |string|null: false, unique: true|   
+
 
 ### Association
 has_many :items
@@ -36,8 +36,6 @@ has_many :orders
 ### Association
 belongs_to :user
 has_one :order
-has_one :destination, through: :order
-
 
 
 ## orders
@@ -67,5 +65,4 @@ has_one :destination
 |phone_number |string    |null: false
 
 ### Association
-has_one :order
-has_one :destination, through: :item
+belongs_to :order
