@@ -10,7 +10,7 @@ RSpec.describe Item, type: :model do
     context '出品登録ができるとき' do
       it '全ての入力事項が存在すれば登録できる' do
         expect(@item).to be_valid
-      end     
+      end
     end
 
     context '出品ができないとき' do
@@ -38,7 +38,7 @@ RSpec.describe Item, type: :model do
         @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
-      end      
+      end
       it '商品の状態の情報が「---」だと出品できない' do
         @item.condition_id = 1
         @item.valid?
@@ -48,7 +48,7 @@ RSpec.describe Item, type: :model do
         @item.shipping_cost_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping cost can't be blank")
-      end      
+      end
       it '発送元の地域の情報が「---」だと出品できない' do
         @item.prefecture_id = 1
         @item.valid?
@@ -76,11 +76,10 @@ RSpec.describe Item, type: :model do
       end
 
       it '価格が半角数字以外だと出品できない' do
-        @item.price = "あ"
+        @item.price = 'あ'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
-      end  
+      end
     end
   end
 end
-
