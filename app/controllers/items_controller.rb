@@ -35,9 +35,9 @@ class ItemsController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
-    prototype.destroy
+    @item.destroy
     redirect_to root_path
   end
 
