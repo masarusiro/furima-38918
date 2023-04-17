@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
     end
   end
 
-  def update   
+  def update
     if @item.update(item_params)
       redirect_to item_path(item_params)
     else
@@ -37,12 +37,11 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if @item.user_id == current_user.id  
-       @item.destroy
-       redirect_to root_path
-    end
-  end
+    return unless @item.user_id == current_user.id
 
+    @item.destroy
+    redirect_to root_path
+  end
 
   private
 
