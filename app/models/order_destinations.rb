@@ -1,7 +1,7 @@
 class OrderDestinations
   include ActiveModel::Model
 
-   with_options presense: true do
+   with_options presence: true do
     #orderモデル
     validates :user_id
     validates :item_id
