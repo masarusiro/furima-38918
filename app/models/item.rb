@@ -13,6 +13,7 @@ class Item < ApplicationRecord
   # modelとのアソシエーション
   belongs_to :user
   has_one_attached :image
+  has_one :order
 
   # ActiveHashを使ったモデルとのアソシエーション
   extend ActiveHash::Associations::ActiveRecordExtensions
