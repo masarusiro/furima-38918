@@ -17,15 +17,20 @@ const pay = () => {
       } else {
         const token = response.id;
         const renderDom = document.getElementById("charge-form");
+        // トークンは非表示
         const tokenObj = `<input value=${token} name='token' type="hidden">`;
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
       }
+
+      //フォームに存在するクレジット情報の削除
       numberElement.clear();
       expiryElement.clear();
       cvcElement.clear();
+
+      // フォームの情報を送信
       document.getElementById("charge-form").submit();
     });
   });
 };
-
+// payを読み込んだら実行
 window.addEventListener("load", pay);
