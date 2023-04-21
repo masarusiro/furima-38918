@@ -6,11 +6,13 @@ class OrderDestinations
     validates :user_id
     validates :item_id
     #destinationモデル
-    validates :postcode
+    validates :postcode, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)' }
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :city
     validates :block
-    validates :phone_number
+    validates :phone_number, format: { with: /\A[0-9]{11}\z/, message: 'is invalid' }
+    #payjp トークン
+    validates :token
    end
 
    def save
