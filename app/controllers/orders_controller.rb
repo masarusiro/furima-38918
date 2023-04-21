@@ -1,15 +1,19 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:index, :create]
+  before_action :check_access, only: [:index, :create]
   
 
     def index
       @order_destinations = OrderDestinations.new
       @item = Item.find(params[:item_id])
+      redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
     end
 
     def create
       @item = Item.find(params[:item_id])
+      redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
       @order_destinations = OrderDestinations.new(order_params)
+
       if @order_destinations.valid?
          pay_item
          @order_destinations.save
@@ -34,5 +38,9 @@ def pay_item
   )
 end  
 
+def check_access
+  @item = Item.find(params[:item_id])
+  redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
+end
 
 end
