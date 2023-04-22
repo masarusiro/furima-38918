@@ -4,13 +4,10 @@ class OrdersController < ApplicationController
 
   def index
     @order_destinations = OrderDestinations.new
-    @item = Item.find(params[:item_id])
-    redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
   end
 
   def create
     @item = Item.find(params[:item_id])
-    redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
     @order_destinations = OrderDestinations.new(order_params)
 
     if @order_destinations.valid?

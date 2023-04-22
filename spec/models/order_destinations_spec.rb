@@ -3,16 +3,21 @@ require 'rails_helper'
 RSpec.describe OrderDestinations, type: :model do
   before do
     @user = FactoryBot.create(:user)
-    @item = FactoryBot.build(:item)
-    @item.image = fixture_file_upload('public/images/test_image.png')
-    @item.save
+    @item = FactoryBot.create(:item)
     @order_destinations = FactoryBot.build(:order_destinations, user_id: @user.id, item_id: @item.id)
     sleep 0.1
   end
-
+context '商品購入ができる時' do
   it '全ての項目が入力されていれば購入ができる' do
     expect(@order_destinations).to be_valid
   end
+  it '建物名がなくても購入ができる' do
+    @order_destinations.building = nil
+    expect(@order_destinations).to be_valid   
+  end
+end
+
+context '商品購入ができない時' do
   it 'tokenが空だと購入ができない' do
     @order_destinations.token = nil
     @order_destinations.valid?
@@ -51,11 +56,35 @@ RSpec.describe OrderDestinations, type: :model do
   it 'phone_numberが空だと購入できない' do
     @order_destinations.phone_number = ''
     @order_destinations.valid?
-    expect(@order_destinations.errors.full_messages).to include("Phone number can't be blank", 'Phone number is invalid')
+    expect(@order_destinations.errors.full_messages).to include("Phone number can't be blank")
   end
-  it 'phone_numberが11桁でなければ購入できない' do
+  it 'phone_numberが英数混合では購入できない' do
+    @order_destinations.phone_number = 'o123456789'
+    @order_destinations.valid?
+    expect(@order_destinations.errors.full_messages).to include('Phone number is invalid')
+  end
+
+  it 'phone_numberが9桁以下だと購入できない' do
+    @order_destinations.phone_number = '012345678'
+    @order_destinations.valid?
+    expect(@order_destinations.errors.full_messages).to include('Phone number is invalid')
+  end
+  it 'phone_numberが12桁以上だと購入できない' do
     @order_destinations.phone_number = '012345678910'
     @order_destinations.valid?
     expect(@order_destinations.errors.full_messages).to include('Phone number is invalid')
   end
+  it 'user_idが空だと購入できない' do
+    @order_destinations.user_id = ''
+    @order_destinations.valid?
+    expect(@order_destinations.errors.full_messages).to include("User can't be blank")
+  end
+  it 'item_idが空だと購入できない' do
+    @order_destinations.item_id = ''
+    @order_destinations.valid?
+    expect(@order_destinations.errors.full_messages).to include("Item can't be blank")
+  end
+
+
+end
 end
