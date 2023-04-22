@@ -22,4 +22,5 @@ class OrderDestinations
     Destination.create(postcode: postcode, prefecture_id: prefecture_id, city: city, block: block, building: building, phone_number: phone_number, order_id: order.id)
    end
 
-  end
+  end 
+  
