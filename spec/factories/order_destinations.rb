@@ -1,4 +1,3 @@
-
 FactoryBot.define do
   factory :order_destinations do
     token { 'tok_abcdefghijk00000000000000000' }
@@ -10,4 +9,3 @@ FactoryBot.define do
     phone_number { Faker::Number.decimal_part(digits: 11) }
   end
 end
-
