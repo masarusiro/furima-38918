@@ -27,7 +27,7 @@
        <%# ログインの有無、出品者かどうか %>
     <% if user_signed_in? %>
        <%# ログインしていて出品しているユーザーが出品者で商品が売れていない時 %>
-       <% if current_user.id == @item.user_id && @item.order.present? %>
+       <% if current_user.id == @item.user_id && @item.order.nil? %>
           <%= link_to '商品の編集', edit_item_path(@item), method: :get, class: "item-red-btn" %>
           <p class="or-text">or</p>
           <%= link_to "削除", item_path(@item), method: :delete, class:"item-destroy" %>
