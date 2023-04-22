@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :edit, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :require_user, only: [:edit, :destroy]
-  
+
   def index
     @items = Item.all.order('created_at DESC')
   end
@@ -24,9 +24,13 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    if @item.order.present?
+      redirect_to root_path
+    end
+   #before_action :require_user, only: [:edit, :destroy]`により@item.user_id == current_user.id判定済み。売れているかだけで問題ない
   end
 
-  def update   
+  def update
     if @item.update(item_params)
       redirect_to item_path(item_params)
     else
@@ -35,10 +39,9 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item.destroy  
-    redirect_to root_path 
+    @item.destroy
+    redirect_to root_path
   end
-
 
   private
 
@@ -52,9 +55,8 @@ class ItemsController < ApplicationController
   end
 
   def require_user
-    unless @item.user_id == current_user.id
-      redirect_to root_path
-    end
-  end
+    return if @item.user_id == current_user.id
 
+    redirect_to root_path
+  end
 end
