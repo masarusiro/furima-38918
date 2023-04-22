@@ -24,10 +24,10 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if @item.user_id == current_user.id && @item.order.nil?
-    else
+    if @item.order.present?
       redirect_to root_path
     end
+   #before_action :require_user, only: [:edit, :destroy]`により@item.user_id == current_user.id判定済み。売れているかだけで問題ない
   end
 
   def update
