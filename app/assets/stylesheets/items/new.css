@@ -1,5 +1,11 @@
 /* border-bottom: 1px solid #eee; */
-
+.image-delete-button {
+  text-align: center;
+  border: solid 1px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  width: 90%;
+}
 
 .items-sell-contents {
   background-color: #f5f5f5;
@@ -85,10 +91,20 @@
   min-width: 250px;
 }
 
+
 .click-upload>p {
   margin-bottom: 15px;
 }
-
+.preview-image{
+  height: 100px;
+  width: auto;
+}
+.previews {
+  display: flex;
+}
+.preview {
+  width: 20%;
+}
 /* /商品画像 */
 
 /* 商品名と商品説明 */
@@ -108,7 +124,9 @@
 .items-explain {
   margin-top: 2vh;
 }
-
+.previews {
+  display: flex;
+}
 /* /商品名と商品説明 */
 
 /* 商品の詳細など */
@@ -226,19 +244,4 @@
 
 .inc {
   font-size: 13px;
-}
-
-
-.other-images {
-  display: flex;
-}
-
-.other-image {
-  margin-right: 10px;
-}
-
-.image-delete-button {
-  text-align: center;
-  border: solid 1px;
-  cursor: pointer;
 }
